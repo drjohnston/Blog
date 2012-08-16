@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django import forms
 from django.contrib.auth.models import User
@@ -44,14 +44,13 @@ def make_comment(request, article_id):
             form.save()
             return HttpResponseRedirect(reverse('blog.article.views.detail', args=(article.id,)))
         else:
-            return render_to_response('article/detail.html', locals(),
-                                      context_instance=RequestContext(request))
-            
+            #send user back to detail
+            return redirect(detail, article.id)
+                        
     else:
-        form = PartialCommentForm() #blank form
-        return render_to_response('article/detail.html', locals(),
-                                  context_instance=RequestContext(request))
-
+        #redirect to detail
+        return redirect(detail, article.id)
+        
 
 ###To do:
 #@login_required
