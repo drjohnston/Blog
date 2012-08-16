@@ -4,7 +4,8 @@ from django.forms import ModelForm
 from datetime import datetime
 
 class Person(models.Model):
-    '''Current functionality could probably be handled by User, but we will need a separate model in the future.'''
+    '''Current functionality could probably be handled by User, but we
+    will need a separate model in the future.'''
     user = models.ForeignKey( User, unique=True )
 
     def __unicode__(self):
@@ -33,13 +34,15 @@ class Comment(models.Model):
             return self.pk
 
 class PartialCommentForm(ModelForm):
-    '''We only need commenters to provide the title and the content. All other fields are auto-populated.'''
+    '''We only need commenters to provide the title and the
+    content. All other fields are auto-populated.'''
     class Meta:
         model = Comment
         fields = ('title', 'content')
 
 class Vote(models.Model):
-    '''This model is to keep a record of who is voting for what so we can prevent double votes etc.'''
+    '''This model is to keep a record of who is voting for what so we
+    can prevent double votes etc.'''
     value = models.IntegerField()
     datetime = models.DateTimeField ( default=datetime.now )
     voter = models.ForeignKey( Person, related_name="vote_author" )

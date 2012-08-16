@@ -4,7 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.template import RequestContext
 
 def register(request):
-    '''This is a simple registration view that makes use of django's built-in UserCreationForm.  After saving the form, we create a person record for the new user.'''
+    '''This is a simple registration view that makes use of django's
+    built-in UserCreationForm.  After saving the form, we create a
+    person record for the new user.'''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():

@@ -10,8 +10,9 @@ from django.contrib.auth.decorators import login_required
 from blog.article.models import *
 
 def detail(request, article_id):
-    """Article detail view that passes a blank instance of the PartialCommentForm to the template. Could potentially make this view generic.
-    """
+    """Article detail view that passes a blank instance of the
+    PartialCommentForm to the template. Could potentially make this
+    view generic."""
     article = get_object_or_404(Article, pk=article_id)
     form = PartialCommentForm() #blank form
     return render_to_response('article/detail.html', locals(),
@@ -19,8 +20,11 @@ def detail(request, article_id):
 
 @login_required
 def make_comment(request, article_id):
-    '''Only authenticated users can comment. The user supplies the 'title' and 'content' through the PartialCommentForm; we supply the 'commenter' and 'article' field. The 'datetime' field is handled by default with the 'default=datetime.now' setting in models.py.
-    '''
+    '''Only authenticated users can comment. The user supplies the
+    'title' and 'content' through the PartialCommentForm; we supply
+    the 'commenter' and 'article' field. The 'datetime' field is
+    handled by default with the 'default=datetime.now' setting in
+    models.py.'''
     article = get_object_or_404(Article, pk=article_id)
     commenter = request.user.get_profile()
 

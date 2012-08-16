@@ -12,8 +12,8 @@ urlpatterns = patterns('',
     url(r'^$', 
         ListView.as_view(
             queryset=Article.objects.order_by('-datetime')[:10],
-            context_object_name = 'latest_articles_list',
-            template_name = 'article/index.html'),
+            context_object_name='latest_articles_list',
+            template_name='article/index.html'),
         name='article_index'),
 
     url(r'^article/', include('blog.article.urls')),
