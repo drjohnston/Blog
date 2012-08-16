@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ person|capfirst }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ person }}</h1>
+
+{% if person.article_author %}
+  <h3>Articles</h3>
+    <ul>
+      {% for article in person.article_author.all %}
+      <li>{{ forloop.counter }}. <a href="/article/{{ article.id }}">{{ article.title|truncatechars:"10" }}</a></li>
+      {% endfor %}
+    </ul>
+{% endif %}
+    
+{% if person.comment_author %}
+  <h3>Comments</h3>
+    <ul>
+      {% for comment in person.comment_author.all %}
+      <li>{{ forloop.counter }}. 
+	<a href="/article/{{ comment.article.id }}">
+	  {% if comment.title %}{{ comment.title }}
+	  {% else %}(no title ){% endif %}
+	</a>
+      </li>
+      {% endfor %}
+{% endif %}
+  
+
+{% endblock content %}

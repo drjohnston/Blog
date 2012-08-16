@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <title>{% block title %}{% endblock %} | Blog</title>
+
+  <script type="text/javascript" src="/static/jquery-1.6.2.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/main.css" />
+
+  {% block extra_scripts %}{% endblock extra_scripts %}
+
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+  <p>
+    <a href="/">Home</a> -- 
+    <a href="/article/author/{{ user.id }}/">Profile</a> -- 
+    <a href="/logout/">Logout</a> -- 
+    Currently logged in as {{ user }}
+  </p>
+{% else %}
+  <p>
+    <a href="/login/?next={{ request.path }}">Login</a> / 
+    <a href="/register/">Register</a>
+  </p>
+{% endif %}
+
+
+  {% block content %}{% endblock %}
+
+  <h5 id="admin_login"><a href="/admin/">Admin</a></h5>
+
+</body>
+
+</html>
