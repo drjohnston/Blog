@@ -1,5 +1,8 @@
 # Django settings for blog project.
 
+from os.path import dirname, join, realpath
+SITE_ROOT = dirname(realpath(__file__))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -11,12 +14,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/danielrjohnston/haxor/blog/blog/db.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '',  # Should be defined in local_settings.py
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -56,7 +59,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = join(SITE_ROOT, "sitestatic")
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -64,6 +67,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    join(SITE_ROOT, "static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -103,11 +107,13 @@ ROOT_URLCONF = 'blog.urls'
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/danielrjohnston/haxor/blog/blog/templates"
+    join(SITE_ROOT, "templates")
+        
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -155,3 +161,8 @@ LOGGING = {
 AUTH_PROFILE_MODULE = 'article.person'
 
 LOGIN_REDIRECT_URL = '/'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
