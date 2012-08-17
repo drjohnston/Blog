@@ -1,5 +1,3 @@
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django import forms
@@ -42,7 +40,7 @@ def make_comment(request, article_id):
         #Process form
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('blog.article.views.detail', args=(article.id,)))
+            return redirect(detail, article.id)
         else:
             #send user back to detail
             return redirect(detail, article.id)
