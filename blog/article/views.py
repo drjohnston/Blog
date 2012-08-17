@@ -1,11 +1,8 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from django import forms
-from django.contrib.auth.models import User
-
 from django.contrib.auth.decorators import login_required
 
-from blog.article.models import *
+from blog.article.models import Article, PartialCommentForm
 
 def detail(request, article_id):
     """Article detail view that passes a blank instance of the
